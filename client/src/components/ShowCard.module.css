@@ -1,0 +1,187 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: #444466;
+}
+
+/* Trailer embed — 16:9 */
+.trailer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.posterWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.poster {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+
+.noTrailer {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.imdb {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: #f5c518;
+  font-weight: 600;
+}
+
+.imdbLogo {
+  background: #f5c518;
+  color: #000;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  line-height: 1;
+}
+
+.why {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #b0b0cc;
+}
+
+.platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.platform {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Desktop: horizontal layout */
+@media (min-width: 640px) {
+  .card {
+    flex-direction: row;
+    min-height: 460px;
+  }
+
+  .trailer,
+  .posterWrapper,
+  .noTrailer {
+    width: 42%;
+    flex-shrink: 0;
+    aspect-ratio: unset;
+    align-self: stretch;
+  }
+
+  .trailer {
+    position: relative;
+  }
+
+  .posterWrapper {
+    align-items: stretch;
+  }
+
+  .poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .body {
+    flex: 1;
+    justify-content: flex-start;
+    padding: 36px 32px;
+    gap: 20px;
+  }
+
+  .titleRow {
+    margin-top: 24px;
+  }
+
+  .platforms {
+    margin-top: auto;
+    margin-bottom: 32px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .imdb {
+    font-size: 1rem;
+  }
+
+  .imdbLogo {
+    font-size: 0.85rem;
+    padding: 3px 6px;
+  }
+
+  .why {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .platform {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+}

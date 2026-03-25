@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/Goncalo/Downloads/ross-mike-workflows -type f \\\\\\(-name *.png -o -name *.jpg -o -name *.jpeg -o -name *.gif -o -name *.webp -o -name *.svg \\\\\\))"
+    ]
+  }
+}
