@@ -6,20 +6,8 @@ import { recommendRouter } from './routes/recommend.js';
 
 const app = express();
 
-// Allow requests only from our own frontend
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:5173'];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (e.g. same-origin server calls, curl in dev)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error('Not allowed by CORS'));
-  },
-  methods: ['POST'],
-}));
+// Allow all origins — the API key lives server-side and rate limiting is the real protection
+app.use(cors({ methods: ['POST', 'OPTIONS'] }));
 
 // Rate limit: max 10 recommendation requests per IP per 15 minutes
 const apiLimiter = rateLimit({
