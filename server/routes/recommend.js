@@ -54,7 +54,19 @@ recommendRouter.post('/recommend', async (req, res) => {
     return res.status(400).json({ error: 'Provide an array of show names.' });
   }
 
-  const showList = shows.filter(Boolean).join(', ');
+  // Sanitize: limit array size, trim strings, reject anything too long
+  const MAX_SHOWS = 10;
+  const MAX_TITLE_LENGTH = 100;
+  const cleaned = shows
+    .slice(0, MAX_SHOWS)
+    .map((s) => (typeof s === 'string' ? s.trim().slice(0, MAX_TITLE_LENGTH) : ''))
+    .filter(Boolean);
+
+  if (cleaned.length === 0) {
+    return res.status(400).json({ error: 'Provide at least one valid show name.' });
+  }
+
+  const showList = cleaned.join(', ');
 
   const prompt = `You are a movie expert. A user enjoys these movies: ${showList}.
 
@@ -86,9 +98,10 @@ Rules:
     const recommendations = JSON.parse(text);
 
     // Fetch TMDB data (poster + trailer) for all 3 in parallel
+    // Each fetch is isolated — one failure won't kill the others
     const enriched = await Promise.all(
       recommendations.map(async (rec) => {
-        const tmdb = await fetchTMDBData(rec.title);
+        const tmdb = await fetchTMDBData(rec.title).catch(() => ({}));
         return { ...rec, ...tmdb };
       })
     );
